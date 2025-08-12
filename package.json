@@ -1,6 +1,9 @@
 {
   "name": "first-deployment",
   "module": "index.ts",
+  "scripts": {
+    "dev": "bunx convex dev"
+  },
   "type": "module",
   "private": true,
   "devDependencies": {

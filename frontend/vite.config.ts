@@ -11,4 +11,9 @@ export default defineConfig({
     }),
     react(),
   ],
+  build: {
+    rollupOptions: {
+      external: ["convex/server"],
+    },
+  },
 });

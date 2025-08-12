@@ -1,4 +1,5 @@
-import { query, QueryCtx } from "./_generated/server";
+import { query } from "./_generated/server";
+import { QueryCtx } from "./_generated/server";
 
 export const hello = query({
   args: {},

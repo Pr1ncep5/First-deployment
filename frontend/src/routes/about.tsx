@@ -1,18 +1,21 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "convex/react";
-import { api } from "../../../backend/convex/_generated/api";
+import { api } from "../../../convex/_generated/api";
 
 export const Route = createFileRoute("/about")({
   component: About,
 });
 
 function About() {
-  const greetings = useQuery(api.greetings.hello);
-
+  const tasks = useQuery(api.tasks.get);
   return (
-    <div className="p-2">
-      Look below, this is a message from the backend:
-      <p>{greetings}</p>
+    <div>
+      <h3>About Page</h3>
+      {tasks?.map((task: any) => (
+        <div key={task._id}>
+          <p>{task.text}</p>
+        </div>
+      ))}
     </div>
   );
 }

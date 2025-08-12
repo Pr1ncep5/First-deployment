@@ -3,6 +3,7 @@ import "./index.css";
 import { routeTree } from "./routeTree.gen.ts";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import ReactDOM from "react-dom/client";
+import { ConvexProvider, ConvexReactClient } from "convex/react";
 
 // Create a new router instance
 const router = createRouter({ routeTree });
@@ -14,13 +15,17 @@ declare module "@tanstack/react-router" {
   }
 }
 
+const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string);
+
 // Render the app
 const rootElement = document.getElementById("root")!;
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <StrictMode>
-      <RouterProvider router={router} />
+      <ConvexProvider client={convex}>
+        <RouterProvider router={router} />
+      </ConvexProvider>
     </StrictMode>
   );
 }

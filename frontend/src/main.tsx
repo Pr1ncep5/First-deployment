@@ -3,7 +3,9 @@ import "./index.css";
 import { routeTree } from "./routeTree.gen.ts";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import ReactDOM from "react-dom/client";
-import { ConvexProvider, ConvexReactClient } from "convex/react";
+import { ConvexBetterAuthProvider } from "@convex-dev/better-auth/react";
+import { ConvexReactClient } from "convex/react";
+import { authClient } from "./lib/auth-client";
 
 // Create a new router instance
 const router = createRouter({ routeTree });
@@ -23,9 +25,9 @@ if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <StrictMode>
-      <ConvexProvider client={convex}>
+      <ConvexBetterAuthProvider client={convex} authClient={authClient}>
         <RouterProvider router={router} />
-      </ConvexProvider>
+      </ConvexBetterAuthProvider>
     </StrictMode>
   );
 }

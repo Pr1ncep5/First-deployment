@@ -1,26 +1,34 @@
-import { createRootRoute, Link, Outlet } from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
+import { createRootRoute, Outlet, Navigate, useLocation } from "@tanstack/react-router";
+import { Authenticated, Unauthenticated, AuthLoading } from "convex/react";
+import Header from "../components/header";
 
 export const Route = createRootRoute({
-  component: () => (
-    <>
-      <div className="p-2 flex gap-2">
-        <Link to="/" className="[&.active]:font-bold">
-          Home
-        </Link>{' '}
-        <Link to="/about" className="[&.active]:font-bold">
-          About
-        </Link>{' '}
-        <Link to="/auth" className="[&.active]:font-bold">
-          Auth
-        </Link>{' '}
-        <Link to="/test" className="[&.active]:font-bold">
-          Test
-        </Link>
-      </div>
-      <hr />
-      <Outlet />
-      <TanStackRouterDevtools />
-    </>
-  ),
-})
+  component: () => {
+    const location = useLocation();
+    const onAuthPage = location.pathname.startsWith("/auth");
+    return (
+      <>
+        <AuthLoading>
+          <div>Loading...</div>
+        </AuthLoading>
+        <Unauthenticated>
+          {onAuthPage ? (
+            <Outlet />
+          ) : (
+            <Navigate to="/auth" />
+          )}
+        </Unauthenticated>
+        <Authenticated>
+          {onAuthPage ? (
+            <Navigate to="/" />
+          ) : (
+            <>
+              <Header />
+              <Outlet />
+            </>
+          )}
+        </Authenticated>
+      </>
+    );
+  },
+});

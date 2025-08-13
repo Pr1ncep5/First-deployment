@@ -7,6 +7,7 @@ import { ConvexBetterAuthProvider } from "@convex-dev/better-auth/react";
 import { ConvexReactClient } from "convex/react";
 import { authClient } from "./lib/auth-client";
 import { Toaster } from "sonner";
+import { AuthProvider } from "./components/authProvider";
 
 // Create a new router instance
 const router = createRouter({ routeTree });
@@ -28,7 +29,9 @@ if (!rootElement.innerHTML) {
     <StrictMode>
       <Toaster />
       <ConvexBetterAuthProvider client={convex} authClient={authClient}>
-        <RouterProvider router={router} />
+        <AuthProvider>
+          <RouterProvider router={router} />
+        </AuthProvider>
       </ConvexBetterAuthProvider>
     </StrictMode>
   );

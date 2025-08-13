@@ -1,5 +1,5 @@
 import { BetterAuth, type AuthFunctions } from "@convex-dev/better-auth";
-import { api, components, internal } from "./_generated/api";
+import { components, internal } from "./_generated/api";
 import { query } from "./_generated/server";
 import type { Id, DataModel } from "./_generated/dataModel";
 
@@ -11,7 +11,7 @@ export const betterAuthComponent = new BetterAuth(components.betterAuth, {
 
 export const { createUser, updateUser, deleteUser, createSession } =
   betterAuthComponent.createAuthFunctions<DataModel>({
-    onCreateUser: async (ctx, user) => {
+    onCreateUser: async (ctx) => {
       return ctx.db.insert("users", {});
     },
     onDeleteUser: async (ctx, userId) => {

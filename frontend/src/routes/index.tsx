@@ -9,14 +9,6 @@ export const Route = createFileRoute("/")({
 function Index() {
   const session = useSession();
 
-  if (session.isPending) {
-    return <div>Loading...</div>;
-  }
-
-  if (session.error) {
-    return <div>Error: {session.error.message}</div>;
-  }
-
   if (session && session.data) {
     return (
       <div className="p-2">

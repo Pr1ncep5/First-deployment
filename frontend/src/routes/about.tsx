@@ -11,14 +11,6 @@ export const Route = createFileRoute("/about")({
 function About() {
   const tasks = useQuery(api.tasks.get);
 
-  if (tasks.length === 0) {
-    return (
-      <div className="flex flex-col items-center justify-center h-screen">
-        <p className="text-zinc-600">No tasks found. Add some!</p>
-      </div>
-    );
-  }
-
   return (
     <div className="p-4 md:p-8 lg:p-12">
       <h3 className="text-3xl">About Page</h3>

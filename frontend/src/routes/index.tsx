@@ -1,13 +1,33 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from "@tanstack/react-router";
+import { useSession } from "../lib/auth-client";
+import { LoginCard } from "../components/login";
 
-export const Route = createFileRoute('/')({
+export const Route = createFileRoute("/")({
   component: Index,
-})
+});
 
 function Index() {
+  const session = useSession();
+
+  if (session.isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (session.error) {
+    return <div>Error: {session.error.message}</div>;
+  }
+
+  if (session && session.data) {
+    return (
+      <div className="p-2">
+        <p>Hello, dear {session.data.user.name}!</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="p-2">
-      <h3>Welcome Home!</h3>
+    <div className="flex h-screen items-center justify-center">
+      <LoginCard />
     </div>
-  )
+  );
 }
